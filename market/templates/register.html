@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{%block title%}
+    Register Page
+{%endblock%}
+
+{%block content%}
+
+<body class="text-center">
+    <div class="container">
+        <img class="mb-4" style="width: 20%;" src="https://www.logo.wine/a/logo/Riot_Games/Riot_Games-Logo.wine.svg" alt="">
+        <h1 class="h3 mb-3 font-weight-normal"> Please Create your Account </h1>
+        <br>
+        <form method="POST" action="{{url_for('register_page')}}" class="form-register" style="color: whitesmoke;">
+            {{form.hidden_tag()}}
+        
+            {{form.username.label()}}
+            {{form.username(class='form-control', placeholder='User Name')}}
+            {{form.email_address.label()}}
+            {{form.email_address(class='form-control', placeholder='Email')}}
+            {{form.password1.label()}}
+            {{form.password1(class='form-control', placeholder='Password')}}
+            {{form.password2.label()}}
+            {{form.password2(class='form-control', placeholder='Confirm Password')}}
+            <br>
+            {{form.submit(class="btn btn-lg btn-block btn-primary")}}
+        </form>
+    </div>
+    
+</body>
+
+{%endblock%}

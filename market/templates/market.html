@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{%block title%}
+    Market Page
+{%endblock%}
+
+{% block content %}
+
+{%include 'includes/infomodal.html'%}
+{%include 'includes/buymodal.html'%}
+
+<div class="row">
+    <div class="col-sm-8">
+        
+    <table class="table table-hover table-dark">
+        <thead>
+            <tr>
+                <!-- Your Columns HERE -->
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Barcode</th>
+                <th scope="col">Price</th>
+                <th scope="col">Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Your rows inside the table HERE: -->
+                {% for item in items%}
+                <tr>
+                    <td>{{item.id}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.barcode}}</td>
+                    <td>{{item.price}}</td>
+                    <td>
+                        <a href="addToCart/{{item.id}}"></a>
+                        <button class="btn btn-outline btn-info" data-toggle="modal" data-target="#Modal-MoreInfo-{{item.id}}">More Info</button>
+                        <button class="btn btn-outline btn-success" data-toggle="modal" data-target="#Modal-Buy-{{item.id}}">Purchase this item</button>
+                    </td>
+                </tr>
+                {%endfor%}
+        </tbody>
+    </table>
+    </div>
+    <div class="col-sm-4">
+        <h4 class="m-4">Owned Items</h4>
+
+        <table class="table table-hover table-dark">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Your rows inside the table HERE: -->
+                    {% for owned_item in owned_items%}
+                    <tr>
+                        <td>{{owned_item.name}}</td>
+                        <td>{{owned_item.price}}</td>
+                        <td>
+                            <form action="{{url_for('sell')}}" method="POST">
+                                <input type="hidden" id="item_to_sell" name="item_to_sell" value="{{owned_item.id}}">
+                                {{ sell_form.submit(class="btn btn-outline btn-success") }}
+                            </form>
+                        </td>
+                    </tr>
+                    {%endfor%}
+            </tbody>
+        </table>
+    </div>
+  </div>
+
+{%endblock%}
